@@ -5,7 +5,7 @@ https://payment.xidian.edu.cn/NetWorkUI/elecPayprojectCreateOrder
 
 
 //通过账号查liveid和房间号
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d 'p_Userid=2008022302&p_Password=123456&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkUserInfo
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=47A37CC40A85A8C118F78ED994C1B1AB; JSESSIONID=8DF6924CC1B606C3EA8AC9543B1F5909;" -d 'p_Userid=2008022302&p_Password=123456&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkUserInfo
 
 
 // 查询电费
