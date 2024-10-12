@@ -1,0 +1,19 @@
+curl -X POST -H "Content-Type: application/json" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d '{"roomno": "海棠公寓-8号楼-2区-寝室-2302[学生]", "roomid": "R000016022", "liveid": "U000017961", "itemcode": "", "payProjectId": "29", "payAmt": "5", "ownTotal": "",  "p_Userid": "2008022302", "factorycode": "E003"}' \
+https://payment.xidian.edu.cn/NetWorkUI/elecPayprojectCreateOrder
+
+
+
+
+//通过账号查liveid和房间号
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d 'p_Userid=2008022302&p_Password=123456&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkUserInfo
+
+
+// 查询电费
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=91DDB8FEB295FF51445E582F11FB21E3; JSESSIONID=8DF6924CC1B606C3EA8AC9543B1F5909" -d 'liveid=U000017961&addressid=R000016022&payAmt=草&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkPayelec
+
+
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESScurl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d 'liveid=U000017961&addressid=R000016022&payAmt=a&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkPayelec
+
+
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d '{"p_Userid": "2008022302"}' https://payment.xidian.edu.cn/NetWorkUI/queryLastEleForUserInfo
+
