@@ -2,10 +2,14 @@ curl -X POST -H "Content-Type: application/json" -H "Cookie: JSESSIONID=FAD008A6
 https://payment.xidian.edu.cn/NetWorkUI/elecPayprojectCreateOrder
 
 
+JSESSIONID: 1A8B4D2EF6B538C4E7C49A46CB3CA6FA
+JSESSIONID: 453AB67C935FC04BD3DECE3CC1CB25DC
+JSESSIONID: 1A8B4D2EF6B538C4E7C49A46CB3CA6FA
+JSESSIONID: 27EDFA2EDB93F60E81F468A71B34ECEE
 
 
 //通过账号查liveid和房间号
-curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=47A37CC40A85A8C118F78ED994C1B1AB; JSESSIONID=8DF6924CC1B606C3EA8AC9543B1F5909;" -d 'p_Userid=2008022302&p_Password=123456&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkUserInfo
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=8A1E0F373EFA73D45ECC49940EC47904;" -d 'p_Userid=2008022302&p_Password=123456&factorycode=E003' https://payment.xidian.edu.cn/NetWorkUI/checkUserInfo
 
 
 // 查询电费
@@ -17,3 +21,34 @@ curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8"
 
 curl -X POST -H "Content-Type: application/x-www-form-urlencoded; charset=UTF-8" -H "Cookie: JSESSIONID=FAD008A65AF44B094286CB7687E59F95; JSESSIONID=181DB67C7DE4513BC59EC061C2A0FE9C" -d '{"p_Userid": "2008022302"}' https://payment.xidian.edu.cn/NetWorkUI/queryLastEleForUserInfo
 
+
+
+大致思路：
+由payment.xidian.edu.cn发起一个cookies：JSESSIONID=5B84844D67E6DA992E20AC1B26E2520D; Path=/; HttpOnly
+
+随后客户端带着cookies GET请求了https://payment.xidian.edu.cn/pages/caslogin.jsp
+
+GET https://ids.xidian.edu.cn/authserver/login?service=http%3A%2F%2Fpayment.xidian.edu.cn%2Fpages%2Fcaslogin.jsp
+此时获得ids的cookies：
+set-cookie:
+route=dc6e91f4e0419918689f4269f452ad92; Path=/authserver
+set-cookie:
+JSESSIONID=DFBA680F9DE78ACDE88BE075DD9B228B; Path=/authserver; HttpOnly
+
+（可能无意义）
+随后带着这些再次访问https://ids.xidian.edu.cn/authserver/login?service=http%3A%2F%2Fpayment.xidian.edu.cn%2Fpages%2Fcaslogin.jsp
+
+随后拿着cookie:
+route=dc6e91f4e0419918689f4269f452ad92; JSESSIONID=DFBA680F9DE78ACDE88BE075DD9B228B;
+来访问
+https://ids.xidian.edu.cn/authserver/login?service=http%3A%2F%2Fpayment.xidian.edu.cn%2Fpages%2Fcaslogin.jsp
+同时数据夹带：
+username=22009100795&password=8T%2FzzN79TXBjCMwS0nZZR1DmnswOH4PIXgXQ8XgQfN%2B%2FoWY7lzyMhf8hMLkVuNUegBCdbeNyZwXkyF5NEx%2BRwbfMWifps0Ix4PmEdVZfr4s%3D&captcha=&rememberMe=true&_eventId=submit&cllt=userNameLogin&dllt=generalLogin&lt=&execution=637a7e08...
+
+此时返回
+set-cookie:
+happyVoyage=3Bzc0Yqr0gIfTcBHn784gP/CJ4vfdSzgPeZ/dAGthALjzTZBuumms3kq5B1Mzu2k50GHRU5iTMaOQOXNnUozq0MP/1pl864R+iaMzbjD8AgMzufMZR8ogLIlOUNc3pwrmloMz1kfu8YBIbmUAX+T4S+BS6Gg5m1OHEpdWUuLiaM=; Path=/; HttpOnly
+set-cookie:
+CASTGC=TGT-276455-nxp2MHkDciZ844yH1H1l6TuQAqwVGhCtsLjHi8JqHQ4usLNlS5jyqDsAmT1Vtbtdi30null_main; Max-Age=1209600; Expires=Mon, 28-Oct-2024 17:02:35 GMT; Path=/authserver; HttpOnly
+
+随后访问http://payment.xidian.edu.cn/pages/caslogin.jsp?ticket=ST-2136299-44pZi0Admx4P3fAkhva-iCUvQTcauthserver3，仅传入ticket，
